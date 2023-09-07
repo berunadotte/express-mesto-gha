@@ -9,15 +9,13 @@ const getAllUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  User.findById(req.user.id)
+  User.findById(req.params.id)
     .then((user) => {
       res.send({ user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res
-          .status(400)
-          .send({ message: 'Передан неправильный id пользователя.' });
+        return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
       }
       if (err.name === 'DocumentNotFoundError') {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
@@ -32,7 +30,7 @@ const createUser = (req, res) => {
     .then((user) => res.status(201).send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+        return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -52,12 +50,10 @@ const updateUserInfo = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+        return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
       if (err.name === 'CastError') {
-        res
-          .status(400)
-          .send({ message: 'Передан неправильный id пользователя.' });
+        return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -77,12 +73,10 @@ const updateUserAvatar = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+        return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
       if (err.name === 'CastError') {
-        res
-          .status(400)
-          .send({ message: 'Передан неправильный id пользователя.' });
+        return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
       }
       return res.status(500).send({ message: err.message });
     });

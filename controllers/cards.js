@@ -19,8 +19,7 @@ const createCard = (req, res) => {
 };
 
 const deleteCard = (req, res) => {
-  const { cardId } = req.params;
-  Card.findByIdAndRemove(cardId)
+  Card.findByIdAndRemove(req.params.cardId)
     .then(() => res.status(200).send({ message: 'Удаление карточки выполнено.' }))
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -42,13 +41,13 @@ const likeCard = (req, res) => {
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+        return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
       if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Передан неправильный id карточки.' });
+        return res.status(400).send({ message: 'Передан неправильный id карточки.' });
       }
       if (res.statusCode === 404) {
-        res.send({ message: 'Запрашиваемая карточка не найдена.' });
+        return res.send({ message: 'Запрашиваемая карточка не найдена.' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -63,13 +62,13 @@ const unlikeCard = (req, res) => {
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+        return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
       if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Передан неправильный id карточки.' });
+        return res.status(400).send({ message: 'Передан неправильный id карточки.' });
       }
       if (res.statusCode === 404) {
-        res.send({ message: 'Запрашиваемая карточка не найдена.' });
+        return res.send({ message: 'Запрашиваемая карточка не найдена.' });
       }
       return res.status(500).send({ message: err.message });
     });
