@@ -10,9 +10,8 @@ const getAllUsers = (req, res) => {
 
 const getUser = (req, res) => {
   User.findById(req.params.id)
-    .then((user) => {
-      res.send({ user });
-    })
+    .orFail()
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
