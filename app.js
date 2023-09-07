@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
+require('dotenv').config();
 
 const app = express();
-const { PORT = 3000 } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+const { PORT, DB_CONN } = process.env;
+
+mongoose.connect(DB_CONN);
 
 app.use(express.json());
 

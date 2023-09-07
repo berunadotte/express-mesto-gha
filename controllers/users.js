@@ -5,7 +5,7 @@ const getAllUsers = (req, res) => {
     .then((users) => {
       res.send({ users });
     })
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка.' }));
 };
 
 const getUser = (req, res) => {
@@ -19,7 +19,7 @@ const getUser = (req, res) => {
       if (err.name === 'DocumentNotFoundError') {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -31,7 +31,7 @@ const createUser = (req, res) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -54,7 +54,7 @@ const updateUserInfo = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -77,7 +77,7 @@ const updateUserAvatar = (req, res) => {
       if (err.name === 'CastError') {
         return res.status(400).send({ message: 'Передан неправильный id пользователя.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 

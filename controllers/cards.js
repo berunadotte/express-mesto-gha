@@ -3,7 +3,7 @@ const Card = require('../models/card');
 const getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.send({ data: cards }))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .catch(() => res.status(500).send({ message: 'На сервере произошла ошибка.' }));
 };
 
 const createCard = (req, res) => {
@@ -14,7 +14,7 @@ const createCard = (req, res) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -31,7 +31,7 @@ const deleteCard = (req, res) => {
       if (err.name === 'DocumentNotFoundError') {
         return res.status(404).send({ message: 'Карточка с таким id не найдена.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -55,7 +55,7 @@ const likeCard = (req, res) => {
       if (res.statusCode === 404) {
         return res.send({ message: 'Запрашиваемая карточка не найдена.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
@@ -79,7 +79,7 @@ const unlikeCard = (req, res) => {
       if (res.statusCode === 404) {
         return res.send({ message: 'Запрашиваемая карточка не найдена.' });
       }
-      return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: 'На сервере произошла ошибка.' });
     });
 };
 
