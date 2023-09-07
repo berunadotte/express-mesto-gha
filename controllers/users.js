@@ -1,13 +1,11 @@
 const User = require('../models/user');
 
-const getUsers = (req, res) => {
+const getAllUsers = (req, res) => {
   User.find({})
     .then((users) => {
       res.send({ users });
     })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    });
+    .catch((err) => res.status(500).send({ message: err.message }));
 };
 
 const getUser = (req, res) => {
@@ -16,7 +14,15 @@ const getUser = (req, res) => {
       res.send({ user });
     })
     .catch((err) => {
-      console.log(`Ошибка ${err}`);
+      if (err.name === 'CastError') {
+        return res
+          .status(400)
+          .send({ message: 'Передан неправильный id пользователя.' });
+      }
+      if (err.name === 'DocumentNotFoundError') {
+        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+      }
+      return res.status(500).send({ message: err.message });
     });
 };
 
@@ -25,7 +31,10 @@ const createUser = (req, res) => {
   User.create({ name, about, avatar })
     .then((user) => res.status(201).send({ data: user }))
     .catch((err) => {
-      console.log(`Ошибка ${err}`);
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+      }
+      return res.status(500).send({ message: err.message });
     });
 };
 
@@ -42,7 +51,15 @@ const updateUserInfo = (req, res) => {
   )
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      console.log(`Ошибка ${err}`);
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+      }
+      if (err.name === 'CastError') {
+        res
+          .status(400)
+          .send({ message: 'Передан неправильный id пользователя.' });
+      }
+      return res.status(500).send({ message: err.message });
     });
 };
 
@@ -59,12 +76,20 @@ const updateUserAvatar = (req, res) => {
   )
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      console.log(`Ошибка ${err}`);
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Ошибка валидации. Переданы некорректные данные.' });
+      }
+      if (err.name === 'CastError') {
+        res
+          .status(400)
+          .send({ message: 'Передан неправильный id пользователя.' });
+      }
+      return res.status(500).send({ message: err.message });
     });
 };
 
 module.exports = {
-  getUsers,
+  getAllUsers,
   getUser,
   createUser,
   updateUserInfo,
