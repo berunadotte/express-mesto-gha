@@ -5,8 +5,6 @@ const BadRequestError = require('../middlewares/errors/badRequestError');
 const ConflictError = require('../middlewares/errors/conflictError');
 const NotFoundError = require('../middlewares/errors/badRequestError');
 
-const { JWT_SECRET } = process.env;
-
 const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
@@ -125,8 +123,8 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        JWT_SECRET,
-        { expiresInL: '7d' },
+        'jwt-secret-word',
+        { expiresIn: '7d' },
       );
 
       res.send({ token });
