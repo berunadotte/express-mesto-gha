@@ -19,7 +19,7 @@ router.post(
       link: Joi.string()
         .required()
         .pattern(
-          /^(http[s]?:\/\/)?(www\.)?[a-zA-Z0-9.-]+[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]/,
+          /^https?:\/\/(?:[a-zA-Z0-9_-]+\.)+[a-zA-Z]{2,9}(?:\/[^/]+)*\/[^/]+\.(?:jpg|jpeg|png|gif|bmp|svg|webp)$/i,
         ),
     }),
   }),

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const BadRequestError = require('../middlewares/errors/badRequestError');
 const ConflictError = require('../middlewares/errors/conflictError');
-const NotFoundError = require('../middlewares/errors/badRequestError');
+const NotFoundError = require('../middlewares/errors/notFoundError');
 
 const getAllUsers = (req, res, next) => {
   User.find({})
