@@ -6,7 +6,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const NotFoundError = require('./middlewares/errors/notFoundError');
-const { auth } = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 
 require('dotenv').config();
