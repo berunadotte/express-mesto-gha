@@ -8,9 +8,7 @@ const NotFoundError = require('./middlewares/errors/notFoundError');
 const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 
-require('dotenv').config();
-
-const { PORT, DB_CONN } = process.env;
+const { PORT = 3000, DB_CONN = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
 

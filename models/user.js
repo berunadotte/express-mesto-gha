@@ -3,7 +3,6 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 
 const AuthorizationError = require('../middlewares/errors/authorizationError');
-const BadRequestError = require('../middlewares/errors/badRequestError');
 
 const userSchema = new mongoose.Schema({
   name: {
