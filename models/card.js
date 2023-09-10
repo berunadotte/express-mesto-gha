@@ -23,11 +23,12 @@ const cardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  likes: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: [],
-    ref: 'User',
-  },
+  likes:
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      default: [],
+      ref: 'User',
+    },
   createdAt: {
     type: Date,
     default: Date.now,
