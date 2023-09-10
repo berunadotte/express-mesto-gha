@@ -5,7 +5,8 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer')) {
-    throw new AuthorizationError('Залогинитесь используя почту и пароль.');
+    next(new AuthorizationError('Залогинитесь используя почту и пароль.'));
+    return;
   }
 
   const token = authorization.replace('Bearer ', '');

@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 
 const userRouter = require('./routes/users');
@@ -17,8 +16,8 @@ const app = express();
 
 mongoose.connect(DB_CONN);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
@@ -40,8 +39,8 @@ app.post('/signup', celebrate({
 
 app.use('/', auth);
 
-app.use('/', userRouter);
-app.use('/', cardRouter);
+app.use('/users', userRouter);
+app.use('/cards', cardRouter);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страницы по указанному адресу не существует.'));

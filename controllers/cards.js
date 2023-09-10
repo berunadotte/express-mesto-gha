@@ -24,7 +24,7 @@ const deleteCard = (req, res, next) => {
     .then((card) => {
       const owner = card.owner.toString();
       if (req.user._id === owner) {
-        Card.deleteOne(card)
+        card.deleteOne()
           .then(() => {
             res.send(card);
           })

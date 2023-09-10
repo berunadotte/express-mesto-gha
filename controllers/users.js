@@ -10,12 +10,7 @@ const getAllUsers = (req, res, next) => {
     .then((users) => {
       res.send({ users });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Пользователь не найден.'));
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 const getСurrentUser = (req, res, next) => {
@@ -33,8 +28,9 @@ const getUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequestError('Указан не правильный id пользователя.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -87,8 +83,9 @@ const updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Введенные данные не корректны.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -110,8 +107,9 @@ const updateUserAvatar = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Введенные данные не корректны.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
