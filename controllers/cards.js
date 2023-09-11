@@ -33,11 +33,11 @@ const deleteCard = (req, res, next) => {
         throw new ForbiddenError('Удалить карточку может только ее владелец.');
       }
     })
-    .catch((error) => {
-      if (error.name === 'CastError') {
+    .catch((err) => {
+      if (err.name === 'CastError') {
         next(new BadRequestError('Переданы не валидные данные.'));
       } else {
-        next(error);
+        next(err);
       }
     });
 };
@@ -55,8 +55,9 @@ const likeCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequestError('Переданы не валидные данные.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -73,8 +74,9 @@ const unlikeCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequestError('Переданы не валидные данные.'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
